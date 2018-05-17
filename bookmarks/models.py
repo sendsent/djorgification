@@ -1,4 +1,5 @@
 from uuid import uuid4
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -11,4 +12,6 @@ class Bookmark (models.Model):
     created_at = models.DateTimeField(auto_now_add=True) # every time a new entity is added this will automatically be set to "now", which should be the time it was added at
     last_modified = models.DateTimeField(auto_now=True) # update the time stamp whenever the entity is edited 
     # page_pic = models.ImageField(upload_to='pic_folder', default='pic_folder/None/no-img.jpg')
-
+    
+class PersonalBookmark(Bookmark):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
