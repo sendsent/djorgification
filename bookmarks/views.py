@@ -7,7 +7,8 @@ from .models import Bookmark, PersonalBookmark
 def index(request):
     context = {} # he mentioned python dictionary? put stuff in here soon. analogous to what we've done with express and react
     # TODO: business logic, get data, etc. - do some stuff to the context
-    context['bookmarks'] = Bookmark.objects.all()
+    context['bookmarks'] = Bookmark.objects.exclude(
+        id__in=PersonalBookmark.objects.values_list('id'))
     if request.user.is_anonymous:
         context['personal_bookmarks'] = PersonalBookmark.objects.none()
     else:
